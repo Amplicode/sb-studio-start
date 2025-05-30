@@ -1,0 +1,719 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/athletes": {
+      "post": {
+        "operationId": "AthleteController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateAthleteDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Спортсмен успешно создан",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AthleteDto" }
+              }
+            }
+          }
+        },
+        "summary": "Создать нового спортсмена",
+        "tags": ["athletes"]
+      },
+      "get": {
+        "operationId": "AthleteController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Номер страницы",
+            "schema": { "minimum": 1, "default": 1, "type": "number" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Количество элементов на странице",
+            "schema": { "minimum": 1, "default": 10, "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список всех спортсменов",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/AthleteDto" }
+                    },
+                    "total": {
+                      "type": "number",
+                      "description": "Общее количество спортсменов"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Получить всех спортсменов",
+        "tags": ["athletes"]
+      }
+    },
+    "/athletes/{id}": {
+      "get": {
+        "operationId": "AthleteController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Найденный спортсмен",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AthleteDto" }
+              }
+            }
+          },
+          "404": { "description": "Спортсмен не найден" }
+        },
+        "summary": "Получить спортсмена по ID",
+        "tags": ["athletes"]
+      },
+      "patch": {
+        "operationId": "AthleteController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateAthleteDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Спортсмен успешно обновлен",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AthleteDto" }
+              }
+            }
+          },
+          "404": { "description": "Спортсмен не найден" }
+        },
+        "summary": "Обновить спортсмена",
+        "tags": ["athletes"]
+      },
+      "delete": {
+        "operationId": "AthleteController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Спортсмен успешно удален" },
+          "404": { "description": "Спортсмен не найден" }
+        },
+        "summary": "Удалить спортсмена",
+        "tags": ["athletes"]
+      }
+    },
+    "/tours": {
+      "post": {
+        "operationId": "TourController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateTourDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Тур успешно создан",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TourDto" }
+              }
+            }
+          }
+        },
+        "summary": "Создать новый тур",
+        "tags": ["tours"]
+      },
+      "get": {
+        "operationId": "TourController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Список туров получен",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/TourDto" }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Получить список всех туров",
+        "tags": ["tours"]
+      }
+    },
+    "/tours/{id}": {
+      "get": {
+        "operationId": "TourController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Тур найден",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TourDto" }
+              }
+            }
+          },
+          "404": { "description": "Тур не найден" }
+        },
+        "summary": "Получить тур по ID",
+        "tags": ["tours"]
+      },
+      "put": {
+        "operationId": "TourController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateTourDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Тур обновлен",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TourDto" }
+              }
+            }
+          },
+          "404": { "description": "Тур не найден" }
+        },
+        "summary": "Обновить тур по ID",
+        "tags": ["tours"]
+      },
+      "delete": {
+        "operationId": "TourController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Тур удален" },
+          "404": { "description": "Тур не найден" }
+        },
+        "summary": "Удалить тур по ID",
+        "tags": ["tours"]
+      }
+    },
+    "/tracks": {
+      "post": {
+        "operationId": "TrackController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateTrackDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Трасса успешно создана",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Track" }
+              }
+            }
+          }
+        },
+        "summary": "Создать новую трассу",
+        "tags": ["tracks"]
+      },
+      "get": {
+        "operationId": "TrackController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Номер страницы",
+            "schema": { "minimum": 1, "default": 1, "type": "number" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Количество элементов на странице",
+            "schema": { "minimum": 1, "default": 10, "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список всех трасс",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Track" }
+                    },
+                    "total": {
+                      "type": "number",
+                      "description": "Общее количество трасс"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Получить все трассы",
+        "tags": ["tracks"]
+      }
+    },
+    "/tracks/by-ids": {
+      "get": {
+        "operationId": "TrackController_findByIds",
+        "parameters": [
+          {
+            "name": "ids",
+            "required": true,
+            "in": "query",
+            "description": "Массив ID трасс",
+            "schema": {
+              "example": [1, 2, 3],
+              "type": "array",
+              "items": { "type": "number" }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список найденных трасс",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Track" }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Получить трассы по ID",
+        "tags": ["tracks"]
+      }
+    },
+    "/tracks/{id}": {
+      "get": {
+        "operationId": "TrackController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Найденная трасса",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Track" }
+              }
+            }
+          },
+          "404": { "description": "Трасса не найдена" }
+        },
+        "summary": "Получить трассу по ID",
+        "tags": ["tracks"]
+      },
+      "patch": {
+        "operationId": "TrackController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateTrackDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Трасса успешно обновлена",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Track" }
+              }
+            }
+          },
+          "404": { "description": "Трасса не найдена" }
+        },
+        "summary": "Обновить трассу",
+        "tags": ["tracks"]
+      },
+      "delete": {
+        "operationId": "TrackController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Трасса успешно удалена" },
+          "404": { "description": "Трасса не найдена" }
+        },
+        "summary": "Удалить трассу",
+        "tags": ["tracks"]
+      }
+    }
+  },
+  "info": {
+    "title": "Freeride Tours API",
+    "description": "API для сервиса по продаже туров с опытными фрирайдерами",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    { "name": "tracks", "description": "Операции с трассами" },
+    { "name": "athletes", "description": "Операции со спортсменами" },
+    { "name": "tours", "description": "Операции с турами" }
+  ],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreateAthleteDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Имя спортсмена" },
+          "description": {
+            "type": "string",
+            "description": "Описание спортсмена"
+          },
+          "type": {
+            "type": "string",
+            "description": "Тип спорта",
+            "enum": ["SKI", "SNOWBOARD"]
+          },
+          "level": { "type": "string", "description": "Уровень подготовки" },
+          "experience": { "type": "string", "description": "Опыт катания" },
+          "awards": { "type": "string", "description": "Награды и достижения" },
+          "age": { "type": "number", "description": "Возраст спортсмена" },
+          "photoUrl": {
+            "type": "string",
+            "description": "URL фотографии спортсмена"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "type",
+          "level",
+          "experience",
+          "age",
+          "photoUrl"
+        ]
+      },
+      "AthleteDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "ID спортсмена" },
+          "name": { "type": "string", "description": "Имя спортсмена" },
+          "description": {
+            "type": "string",
+            "description": "Описание спортсмена"
+          },
+          "type": {
+            "type": "string",
+            "description": "Тип спорта",
+            "enum": ["SKI", "SNOWBOARD"]
+          },
+          "level": { "type": "string", "description": "Уровень подготовки" },
+          "experience": { "type": "string", "description": "Опыт катания" },
+          "awards": { "type": "string", "description": "Награды и достижения" },
+          "age": { "type": "number", "description": "Возраст спортсмена" },
+          "photoUrl": {
+            "type": "string",
+            "description": "URL фотографии спортсмена"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "type",
+          "level",
+          "experience",
+          "age",
+          "photoUrl"
+        ]
+      },
+      "UpdateAthleteDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Имя спортсмена" },
+          "description": {
+            "type": "string",
+            "description": "Описание спортсмена"
+          },
+          "type": {
+            "type": "string",
+            "description": "Тип спорта",
+            "enum": ["SKI", "SNOWBOARD"]
+          },
+          "level": { "type": "string", "description": "Уровень подготовки" },
+          "experience": { "type": "string", "description": "Опыт катания" },
+          "awards": { "type": "string", "description": "Награды и достижения" },
+          "age": { "type": "number", "description": "Возраст спортсмена" },
+          "photoUrl": {
+            "type": "string",
+            "description": "URL фотографии спортсмена"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "type",
+          "level",
+          "experience",
+          "age",
+          "photoUrl"
+        ]
+      },
+      "CreateTourDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Название тура" },
+          "description": { "type": "string", "description": "Описание тура" },
+          "level": { "type": "string", "description": "Уровень сложности" },
+          "date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Дата проведения тура"
+          },
+          "photoUrl": {
+            "type": "string",
+            "description": "URL фотографии тура"
+          },
+          "athleteId": { "type": "number", "description": "ID спортсмена" }
+        },
+        "required": [
+          "name",
+          "description",
+          "level",
+          "date",
+          "photoUrl",
+          "athleteId"
+        ]
+      },
+      "TourDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "ID тура" },
+          "name": { "type": "string", "description": "Название тура" },
+          "description": { "type": "string", "description": "Описание тура" },
+          "level": { "type": "string", "description": "Уровень сложности" },
+          "date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Дата проведения тура"
+          },
+          "photoUrl": {
+            "type": "string",
+            "description": "URL фотографии тура"
+          },
+          "athleteId": { "type": "number", "description": "ID спортсмена" },
+          "trackIds": {
+            "description": "ID трассы",
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "level",
+          "date",
+          "photoUrl",
+          "athleteId",
+          "trackIds"
+        ]
+      },
+      "UpdateTourDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Название тура" },
+          "description": { "type": "string", "description": "Описание тура" },
+          "level": { "type": "string", "description": "Уровень сложности" },
+          "date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Дата проведения тура"
+          },
+          "photoUrl": {
+            "type": "string",
+            "description": "URL фотографии тура"
+          },
+          "athleteId": { "type": "number", "description": "ID спортсмена" }
+        },
+        "required": [
+          "name",
+          "description",
+          "level",
+          "date",
+          "photoUrl",
+          "athleteId"
+        ]
+      },
+      "CreateTrackDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Название трассы" },
+          "description": { "type": "string", "description": "Описание трассы" },
+          "length": {
+            "type": "number",
+            "description": "Длина трассы в метрах"
+          },
+          "height": {
+            "type": "number",
+            "description": "Перепад высот в метрах"
+          },
+          "level": { "type": "string", "description": "Сложность трассы" },
+          "imageUrl": {
+            "type": "string",
+            "description": "Ссылка на изображение трассы"
+          }
+        },
+        "required": ["name", "length", "height", "level", "imageUrl"]
+      },
+      "Track": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Уникальный идентификатор трассы"
+          },
+          "name": { "type": "string", "description": "Название трассы" },
+          "description": { "type": "string", "description": "Описание трассы" },
+          "length": {
+            "type": "number",
+            "description": "Длина трассы в метрах"
+          },
+          "height": {
+            "type": "number",
+            "description": "Перепад высот в метрах"
+          },
+          "level": { "type": "string", "description": "Сложность трассы" },
+          "imageUrl": {
+            "type": "string",
+            "description": "Ссылка на изображение трассы"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "length",
+          "height",
+          "level",
+          "imageUrl"
+        ]
+      },
+      "UpdateTrackDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Название трассы" },
+          "description": { "type": "string", "description": "Описание трассы" },
+          "length": {
+            "type": "number",
+            "description": "Длина трассы в метрах"
+          },
+          "height": {
+            "type": "number",
+            "description": "Перепад высот в метрах"
+          },
+          "level": { "type": "string", "description": "Сложность трассы" },
+          "imageUrl": {
+            "type": "string",
+            "description": "Ссылка на изображение трассы"
+          }
+        },
+        "required": ["name", "length", "height", "level", "imageUrl"]
+      }
+    }
+  }
+}
