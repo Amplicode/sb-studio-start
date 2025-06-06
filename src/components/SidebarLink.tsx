@@ -1,17 +1,15 @@
-import { alpha, Link, LinkProps, styled } from "@mui/material";
+import { alpha, Link, styled } from "@mui/material";
 import { useCallback } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, LinkProps } from "react-router-dom";
 
-type SidebarLinkProps = LinkProps & { active: boolean };
-
-const SidebarLink = ({ href, ...other }: LinkProps) => {
+export const SidebarLink = (props: LinkProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const onSidebarStyledLinkClick = useCallback(
     (event: React.MouseEvent<HTMLAnchorElement>) => {
-      if (href) {
+      if (props.to) {
         event.preventDefault();
-        navigate(href);
+        navigate(props.to);
       }
     },
     []
@@ -19,17 +17,19 @@ const SidebarLink = ({ href, ...other }: LinkProps) => {
 
   return (
     <SidebarStyledLink
-      {...other}
+      {...props}
       onClick={onSidebarStyledLinkClick}
       variant={"button"}
-      active={!!(href && location.pathname.match(href)?.length)}
+      active={!!(props.to && location.pathname.match(props.to.toString())?.length)}
     />
   );
 };
 
+type StyledSidebarLinkProps = Omit<LinkProps, 'to'> & { active: boolean };
+
 const SidebarStyledLink = styled(Link, {
   shouldForwardProp: (prop) => prop !== "active",
-})<SidebarLinkProps>(({ theme, active }) => ({
+})<StyledSidebarLinkProps>(({ theme, active }) => ({
   color: active ? "white" : theme.palette.text.primary,
   background: active ? alpha("#3170de", 0.5) : "none",
   textDecoration: "none",
