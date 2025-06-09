@@ -1,6 +1,6 @@
-import { alpha, Link, LinkProps, styled } from "@mui/material";
+import { alpha, Link, styled } from "@mui/material";
 import { useCallback } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, LinkProps } from "react-router-dom";
 
 export const SidebarLink = (props: LinkProps) => {
   const navigate = useNavigate();
